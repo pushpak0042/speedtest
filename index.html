@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self' https://ipapi.co https://api.ipify.org https://api64.ipify.org; object-src 'none'; base-uri 'self'; form-action 'self';"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Speed Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">S</div>
+          <div>
+            <span class="brand-name">speed test</span>
+            <small>Speed Test</small>
+          </div>
+        </div>
+
+        <nav class="top-actions" aria-label="Main navigation">
+          <label class="server-picker" for="serverSelect">
+            <span>Server</span>
+            <select id="serverSelect" aria-label="Choose speed test server">
+              <option value="New York • US">New York • US</option>
+              <option value="London • UK">London • UK</option>
+              <option value="Frankfurt • DE">Frankfurt • DE</option>
+              <option value="Singapore • SG">Singapore • SG</option>
+              <option value="Bangalore • IN">Bangalore • IN</option>
+            </select>
+          </label>
+          <button class="ghost-button">Map</button>
+          <button class="ghost-button" id="historyToggleBtn">History</button>
+        </nav>
+      </header>
+
+      <main class="dashboard">
+        <section class="hero-card">
+          <div class="status-row">
+            <div class="server-card">
+              <span class="label">Server</span>
+              <strong id="serverName">New York • US</strong>
+            </div>
+            <div class="status-pill">
+              <span class="dot"></span>
+              <span>Online</span>
+            </div>
+          </div>
+
+          <div class="speed-visual">
+            <div class="ring-wrap">
+              <div class="ring">
+                <div class="ring-center">
+                  <span class="result-value" id="downloadResult">0</span>
+                  <span class="result-unit">Mbps</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="test-actions">
+              <button id="startTestBtn" class="primary-btn">Start test</button>
+              <button class="secondary-btn">Share</button>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <article class="metric-card accent-ping">
+              <span class="metric-label">Ping</span>
+              <strong id="pingValue">0 ms</strong>
+              <small id="pingCaption">Waiting for test</small>
+            </article>
+            <article class="metric-card accent-download">
+              <span class="metric-label">Download</span>
+              <strong id="downloadValue">0 Mbps</strong>
+              <small>Good speed</small>
+            </article>
+            <article class="metric-card accent-upload">
+              <span class="metric-label">Upload</span>
+              <strong id="uploadValue">0 Mbps</strong>
+              <small>Stable</small>
+            </article>
+            <article class="metric-card accent-jitter">
+              <span class="metric-label">Jitter</span>
+              <strong id="jitterValue">0 ms</strong>
+              <small id="jitterCaption">Ready</small>
+            </article>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <div class="panel-header">
+            <h2>Connection quality</h2>
+            <span id="qualityBadge">Excellent</span>
+          </div>
+
+          <div class="quality-graph" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="scan-summary">
+            <div>
+              <span>Provider</span>
+              <strong id="providerName">Detecting…</strong>
+            </div>
+            <div>
+              <span>Device IP</span>
+              <strong id="deviceIp">Detecting…</strong>
+            </div>
+            <div>
+              <span>Live speed</span>
+              <strong id="liveSpeed">0.0 Mbps</strong>
+            </div>
+          </div>
+
+          <div class="network-info">
+            <div class="info-row">
+              <span>Connection</span>
+              <strong id="connectionType">Detecting…</strong>
+            </div>
+            <div class="info-row">
+              <span>Technology</span>
+              <strong id="technologyName">Detecting…</strong>
+            </div>
+            <div class="info-row">
+              <span>Latency</span>
+              <strong id="latencySummary">0 ms</strong>
+            </div>
+            <div class="info-row">
+              <span>Location</span>
+              <strong id="locationName">Detecting…</strong>
+            </div>
+          </div>
+
+          <div class="progress-block">
+            <div class="progress-header">
+              <span>Test progress</span>
+              <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <section class="results-panel" id="resultsPanel">
+        <div class="results-header">
+          <h3>Recent results</h3>
+          <button class="ghost-button small" id="clearHistoryBtn">Clear</button>
+        </div>
+        <div class="history-table-wrap">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Server</th>
+                <th>Ping</th>
+                <th>Download</th>
+                <th>Upload</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              <tr>
+                <td colspan="5" class="empty-state">No results yet</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
